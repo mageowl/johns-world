@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bk20vxg6hsrjm"]
+
+[ext_resource type="Script" path="res://scenes/camera_border/camera_border.gd" id="1_r77mw"]
+
+[node name="CameraBorders" type="Node2D"]
+visible = false
+script = ExtResource("1_r77mw")

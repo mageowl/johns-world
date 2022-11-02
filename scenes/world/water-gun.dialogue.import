@@ -1,0 +1,14 @@
+[remap]
+
+importer="dialogue_manager_compiler_3"
+type="Resource"
+uid="uid://dnlpngww2e4ns"
+path="res://.godot/imported/water-gun.dialogue-f443d6eb1f5bcf9766296e0deeae1b97.tres"
+
+[deps]
+
+source_file="res://scenes/world/water-gun.dialogue"
+dest_files=["res://.godot/imported/water-gun.dialogue-f443d6eb1f5bcf9766296e0deeae1b97.tres"]
+
+[params]
+
