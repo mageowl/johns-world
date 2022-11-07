@@ -1,11 +1,31 @@
-~ this_is_a_node_title
+~ introduction
 
-Nathan: [[Hi|Hello|Howdy]], this is some dialogue.
-Nathan: Here are some choices.
-- First one
-	Nathan: You picked the first one.
-- Second one
-	Nathan: You picked the second one.
-- Start again => this_is_a_node_title
-- End the conversation => END
-Nathan: For more information see the online documentation.
+Spirit: Hello. I am the [color=blue]Spirit of Water Gun[/color], S.F.'s secretary and personal assistant!
+John: ?
+S.W.G.: This is of course the Land of Jha-hon.
+John: ...
+S.W.G.: Do you want to go back somewhere? 
+John: !!
+S.W.G.: Ahhh, a portal. Yes.
+S.W.G.: You will have to contact the [wave amp=100 freq=5][color=blue]Spirit of the Fountain[/color][/wave].
+John: ...
+S.W.G.: They are currently on vacation. I can put you on the list, if you would like.
+- Yes, ask to get on the list. => enter_list
+- No, of course not.
+	S.W.G.: Alright then, I will see you later.
+	S.W.G.: [color=#c5cddb]Not a very talkitive fellow.[/color] [next=0.2s]
+	=> END
+
+~ enter_list
+
+John: *nods*
+S.W.G.: Of course! I will put you on right away.
+S.W.G.: [speed=0.25] *scribbles* [next]
+S.W.G.: Done. You are currently 42,873th in line.
+John: !!
+S.W.G.: If you would like to move up, you will need to collect V.C.S.P.
+John: ?
+S.W.G.: Verified Community Service Points, of course!
+John: *frow- [next=0.25]
+S.W.G.: Of course you want them! Everyone wants them these days.
+S.W.G.: I will come along for the ride. For verification.

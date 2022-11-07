@@ -1,61 +1,106 @@
-[gd_scene load_steps=4 format=3 uid="uid://76h3xpq0qaa1"]
+[gd_scene load_steps=6 format=3 uid="uid://c8oe30n4etn7l"]
 
 [ext_resource type="Script" path="res://scenes/dialog/dialog_box.gd" id="1_f8i8d"]
 [ext_resource type="Theme" uid="uid://c41osvjl80wpq" path="res://scenes/dialog/dialog_theme.tres" id="1_qi8qh"]
-[ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_8u75c"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_label.gd" id="3_ijokl"]
 
-[node name="DialogBox" type="CanvasLayer"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1arfj"]
+bg_color = Color(0.0941176, 0.192157, 0.654902, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v7b6o"]
+content_margin_left = 120.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="Dialog" type="CanvasLayer" node_paths=PackedStringArray("response_template")]
+process_mode = 3
 script = ExtResource("1_f8i8d")
+response_template = NodePath("Balloon/Margin/VBox/ResponseTemplate")
 
-[node name="ColorRect" type="Panel" parent="."]
+[node name="Balloon" type="Panel" parent="."]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -57.0
+offset_top = 8.0
+offset_bottom = 81.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("1_qi8qh")
 
-[node name="Nameplate" type="Panel" parent="ColorRect"]
-layout_mode = 0
+[node name="Nameplate" type="Panel" parent="Balloon"]
 offset_top = -8.0
 offset_right = 32.0
 offset_bottom = 8.0
 
-[node name="Name" type="Label" parent="ColorRect/Nameplate"]
+[node name="Name" type="Label" parent="Balloon/Nameplate"]
 modulate = Color(1, 1, 1, 0.588235)
-layout_mode = 2
-offset_left = 8.125
-offset_top = 2.125
-offset_right = 2490.12
-offset_bottom = 156.125
+offset_left = 8.0
+offset_top = 2.0
+offset_right = 226.0
+offset_bottom = 125.0
 scale = Vector2(0.075, 0.075)
 text = "jhon"
 
-[node name="Margin" type="MarginContainer" parent="ColorRect"]
-layout_mode = 1
-offset_right = 2667.0
+[node name="Bottom" type="Panel" parent="Balloon"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 103.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Margin" type="MarginContainer" parent="Balloon"]
+offset_right = 4267.0
 offset_bottom = 1280.0
 scale = Vector2(0.075, 0.075)
-theme_override_constants/margin_left = 175
+theme_override_constants/margin_left = 100
 theme_override_constants/margin_top = 175
 theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_bottom = 175
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/Margin"]
-layout_mode = 2
-offset_left = 175.0
+[node name="VBox" type="VBoxContainer" parent="Balloon/Margin"]
+offset_left = 100.0
 offset_top = 175.0
-offset_right = 2657.0
-offset_bottom = 1270.0
+offset_right = 4257.0
+offset_bottom = 1105.0
 
-[node name="DialogueLabel" parent="ColorRect/Margin/VBoxContainer" instance=ExtResource("2_8u75c")]
-layout_mode = 2
-anchors_preset = 0
-anchor_right = 0.0
-offset_right = 2482.0
-offset_bottom = 120.0
-grow_horizontal = 1
-theme_type_variation = &"DialogLabel"
+[node name="DialogueLabel" type="RichTextLabel" parent="Balloon/Margin/VBox"]
+offset_right = 4157.0
+offset_bottom = 151.0
+bbcode_enabled = true
 text = "yoda can eat."
+fit_content_height = true
+script = ExtResource("3_ijokl")
+
+[node name="Control" type="Control" parent="Balloon/Margin/VBox"]
+custom_minimum_size = Vector2i(0, 150)
+layout_mode = 3
+anchors_preset = 0
+offset_top = 155.0
+offset_right = 4157.0
+offset_bottom = 305.0
+
+[node name="Responses" type="VBoxContainer" parent="Balloon/Margin/VBox"]
+offset_top = 309.0
+offset_right = 4157.0
+offset_bottom = 309.0
+
+[node name="ResponseTemplate" type="RichTextLabel" parent="Balloon/Margin/VBox"]
+offset_top = 313.0
+offset_right = 4157.0
+offset_bottom = 464.0
+theme_override_styles/focus = SubResource("StyleBoxFlat_1arfj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_v7b6o")
+text = "response"
+fit_content_height = true
+
+[node name="Localizer" type="Node2D" parent="Balloon"]
+visible = false
+
+[connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
+[connection signal="resized" from="Balloon/Margin" to="." method="_on_margin_resized"]

@@ -7,7 +7,7 @@ const NO_BORDER := Rect2(0, 0, 0, 0)
 var camera_borders : Array[Rect2] = Array()
 
 func _enter_tree():
-	GlobalNode.save(self)
+	Global.save(self, "camera_borders")
 
 func _ready():
 	for node in get_children():
