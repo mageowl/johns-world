@@ -1,0 +1,14 @@
+[remap]
+
+importer="dialogue_manager_compiler_3"
+type="Resource"
+uid="uid://cx3gtnma3jxib"
+path="res://.godot/imported/gabe.dialogue-62ef5982333a48a7aa22cc61a95b4e33.tres"
+
+[deps]
+
+source_file="res://scenes/world/gabe.dialogue"
+dest_files=["res://.godot/imported/gabe.dialogue-62ef5982333a48a7aa22cc61a95b4e33.tres"]
+
+[params]
+

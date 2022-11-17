@@ -6,7 +6,6 @@ var camera_borders : CameraBorders
 var in_dialog := false
 
 func save(node: Node, text: String):
-	print(text)
 	self[text] = node
 
 func start_dialog(resource: Resource, title: String = "0", game_state: Array = []):

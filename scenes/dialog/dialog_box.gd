@@ -77,6 +77,7 @@ var dialog_line : Dictionary:
 			next(dialog_line.next_id)
 		else:
 			is_waiting_for_input = true
+			
 			balloon.focus_mode = Control.FOCUS_ALL
 			balloon.grab_focus()
 	get:

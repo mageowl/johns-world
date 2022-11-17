@@ -1,149 +1,287 @@
-[gd_scene load_steps=18 format=3 uid="uid://c3nxsjtqv6n05"]
+[gd_scene load_steps=34 format=3 uid="uid://c3nxsjtqv6n05"]
 
 [ext_resource type="Texture2D" uid="uid://duwra1ua3np1f" path="res://scenes/player/john.png" id="1_om6va"]
 [ext_resource type="Script" path="res://scenes/player/character_controller.gd" id="1_q3sc0"]
+[ext_resource type="Shader" path="res://scenes/!global/particle.gdshader" id="2_tjxml"]
 [ext_resource type="Texture2D" uid="uid://cwbm1chywmik" path="res://scenes/player/background.png" id="3_dxqet"]
 [ext_resource type="Texture2D" uid="uid://dxw8qn1aubbnu" path="res://scenes/player/cursor.svg" id="3_rr8uq"]
+[ext_resource type="Script" path="res://scenes/player/character_animator.gd" id="3_usknl"]
 [ext_resource type="Script" path="res://scenes/player/cursor.gd" id="4_d46pm"]
 
-[sub_resource type="Animation" id="Animation_swq1f"]
-resource_name = "Walk"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:region_rect")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [Rect2(48, 0, 16, 16), Rect2(64, 0, 16, 16), Rect2(80, 0, 16, 16), Rect2(96, 0, 16, 16)]
-}
-
-[sub_resource type="Animation" id="Animation_l1t1m"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:region_rect")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Rect2(0, 0, 16, 16)]
-}
-
-[sub_resource type="Animation" id="Animation_badhc"]
+[sub_resource type="Animation" id="Animation_filgg"]
 resource_name = "Air"
 length = 0.001
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:region_rect")
+tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Rect2(112, 0, 16, 16)]
+"update": 1,
+"values": [7]
 }
 
-[sub_resource type="Animation" id="Animation_ka5iv"]
+[sub_resource type="Animation" id="Animation_8trls"]
 resource_name = "Idle"
 length = 4.75
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:region_rect")
-tracks/0/interp = 0
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2, 2.1, 2.6, 2.7, 4.7),
+"times": PackedFloat32Array(0, 2, 2.1, 2.6, 2.7, 4.75),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Rect2(0, 0, 16, 16), Rect2(16, 0, 16, 16), Rect2(32, 0, 16, 16), Rect2(16, 0, 16, 16), Rect2(0, 0, 16, 16), Rect2(0, 0, 16, 16)]
+"values": [0, 1, 2, 1, 0, 0]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_l5m3p"]
+[sub_resource type="Animation" id="Animation_fgfwg"]
+resource_name = "Jump"
+length = 0.015
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../JumpParticles")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0054821, 0.01),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [Transform2D(1, 0, 0, 1, 0, 0), Vector2(0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), 0],
+"method": &"emit_particle"
+}, {
+"args": [Transform2D(1, 0, 0, 1, 0, 0), Vector2(0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), 0],
+"method": &"emit_particle"
+}, {
+"args": [Transform2D(1, 0, 0, 1, 0, 0), Vector2(0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), 0],
+"method": &"emit_particle"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_5sen6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_ey1og"]
+resource_name = "Walk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 6]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../StepParticles")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [Transform2D(1, 0, 0, 1, 0, 0), Vector2(0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), 0],
+"method": &"emit_particle"
+}, {
+"args": [Transform2D(1, 0, 0, 1, 0, 0), Vector2(0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), 0],
+"method": &"emit_particle"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ld48j"]
 _data = {
-"Air": SubResource("Animation_badhc"),
-"Idle": SubResource("Animation_ka5iv"),
-"RESET": SubResource("Animation_l1t1m"),
-"Walk": SubResource("Animation_swq1f")
+"Air": SubResource("Animation_filgg"),
+"Idle": SubResource("Animation_8trls"),
+"Jump": SubResource("Animation_fgfwg"),
+"RESET": SubResource("Animation_5sen6"),
+"Walk": SubResource("Animation_ey1og")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ueegp"]
-animation = &"Idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uo1sj"]
-animation = &"Walk"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7s34n"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pg22g"]
 animation = &"Air"
 
-[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_r374s"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mvpc0"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_alfxt"]
 enabled_inputs = 2
-input_0/name = "state 0"
+input_0/name = "no"
 input_0/auto_advance = false
-input_1/name = "state 1"
+input_1/name = "yes"
 input_1/auto_advance = false
 
-[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_0ibjk"]
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_qnxhg"]
 enabled_inputs = 2
-from_start = false
-input_0/name = "state 0"
+input_0/name = "no"
 input_0/auto_advance = false
-input_1/name = "state 1"
+input_1/name = "yes"
 input_1/auto_advance = false
 
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_p51ra"]
-graph_offset = Vector2(-343.855, 6.3157)
-nodes/Animation/node = SubResource("AnimationNodeAnimation_7s34n")
-nodes/Animation/position = Vector2(380, 20)
-"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_ueegp")
-"nodes/Animation 2/position" = Vector2(80, 140)
-"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_uo1sj")
-"nodes/Animation 3/position" = Vector2(80, 280)
-nodes/Transition/node = SubResource("AnimationNodeTransition_0ibjk")
-nodes/Transition/position = Vector2(600, 80)
-"nodes/Transition 2/node" = SubResource("AnimationNodeTransition_r374s")
-"nodes/Transition 2/position" = Vector2(380, 160)
-nodes/output/position = Vector2(800, 80)
-node_connections = [&"output", 0, &"Transition", &"Transition", 0, &"Animation", &"Transition", 1, &"Transition 2", &"Transition 2", 0, &"Animation 2", &"Transition 2", 1, &"Animation 3"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dapc0"]
+animation = &"Jump"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_8ef0h"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rfoq7"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_rpa7i"]
+graph_offset = Vector2(-122.64, 244.965)
+nodes/air/node = SubResource("AnimationNodeAnimation_pg22g")
+nodes/air/position = Vector2(300, 460)
+nodes/idle/node = SubResource("AnimationNodeAnimation_mvpc0")
+nodes/idle/position = Vector2(80, 300)
+nodes/in_air/node = SubResource("AnimationNodeTransition_alfxt")
+nodes/in_air/position = Vector2(500, 300)
+nodes/is_moving/node = SubResource("AnimationNodeTransition_qnxhg")
+nodes/is_moving/position = Vector2(300, 300)
+nodes/jump/node = SubResource("AnimationNodeAnimation_dapc0")
+nodes/jump/position = Vector2(500, 460)
+nodes/jumped/node = SubResource("AnimationNodeOneShot_8ef0h")
+nodes/jumped/position = Vector2(740, 300)
+nodes/output/position = Vector2(1060, 300)
+nodes/walk/node = SubResource("AnimationNodeAnimation_rfoq7")
+nodes/walk/position = Vector2(80, 420)
+node_connections = [&"output", 0, &"jumped", &"in_air", 0, &"is_moving", &"in_air", 1, &"air", &"is_moving", 0, &"idle", &"is_moving", 1, &"walk", &"jumped", 0, &"in_air", &"jumped", 1, &"jump"]
+
+[sub_resource type="Gradient" id="Gradient_d12b6"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tu2l6"]
+gradient = SubResource("Gradient_d12b6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_486vp"]
+shader = ExtResource("2_tjxml")
+shader_parameter/colorGradient = SubResource("GradientTexture1D_tu2l6")
+shader_parameter/radius = 1.0
+shader_parameter/useDonut = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_juukc"]
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+gravity = Vector3(0, -10, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 2.0
+scale_max = 2.3
+
+[sub_resource type="Gradient" id="Gradient_tdhxw"]
+offsets = PackedFloat32Array(0.573951, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_uf5vi"]
+gradient = SubResource("Gradient_tdhxw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lfkff"]
+shader = ExtResource("2_tjxml")
+shader_parameter/colorGradient = SubResource("GradientTexture1D_uf5vi")
+shader_parameter/radius = 1.0
+shader_parameter/useDonut = false
+
+[sub_resource type="Curve" id="Curve_n03el"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.42437, 1), -0.13113, -0.13113, 0, 0, Vector2(1, 0), -5.12861, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_wiadk"]
+curve = SubResource("Curve_n03el")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xoqqq"]
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 40.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 30.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+linear_accel_min = 10.0
+linear_accel_max = 10.0
+scale_min = 2.0
+scale_max = 2.3
+scale_curve = SubResource("CurveTexture_wiadk")
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_q11py"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sccwk"]
 radius = 4.0
 height = 10.0
 
 [node name="Player" type="CharacterBody2D"]
-z_index = 10
+z_index = -1
 script = ExtResource("1_q3sc0")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_om6va")
 offset = Vector2(0, -8)
-region_enabled = true
-region_rect = Rect2(52, 3, 9, 13)
+hframes = 8
+frame = 3
+script = ExtResource("3_usknl")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 libraries = {
-"": SubResource("AnimationLibrary_l5m3p")
+"": SubResource("AnimationLibrary_ld48j")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="Sprite"]
-tree_root = SubResource("AnimationNodeBlendTree_p51ra")
+tree_root = SubResource("AnimationNodeBlendTree_rpa7i")
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/Transition/current = 1
-"parameters/Transition 2/current" = 0
+parameters/in_air/current = 0
+parameters/is_moving/current = 0
+parameters/jumped/active = false
+
+[node name="StepParticles" type="GPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_486vp")
+emitting = false
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_juukc")
+
+[node name="JumpParticles" type="GPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_lfkff")
+z_index = 100
+emitting = false
+amount = 4
+lifetime = 0.4
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_xoqqq")
 
 [node name="Camera2d" type="Camera2D" parent="."]
 ignore_rotation = false
@@ -174,6 +312,9 @@ position = Vector2(38, 13)
 scale = Vector2(0.075, 0.075)
 texture = ExtResource("3_rr8uq")
 script = ExtResource("4_d46pm")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamGenerator_q11py")
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)

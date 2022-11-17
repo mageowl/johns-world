@@ -12,6 +12,7 @@ John: ...
 S.W.G.: They are currently on vacation. I can put you on the list, if you would like.
 - Yes, ask to get on the list. => enter_list
 - No, of course not.
+	John: *frowns*
 	S.W.G.: Alright then, I will see you later.
 	S.W.G.: [color=#c5cddb]Not a very talkitive fellow.[/color] [next=0.2s]
 	=> END

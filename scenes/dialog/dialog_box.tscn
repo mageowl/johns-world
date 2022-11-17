@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8oe30n4etn7l"]
+[gd_scene load_steps=7 format=3 uid="uid://cmjxkw2yvbvyl"]
 
 [ext_resource type="Script" path="res://scenes/dialog/dialog_box.gd" id="1_f8i8d"]
 [ext_resource type="Theme" uid="uid://c41osvjl80wpq" path="res://scenes/dialog/dialog_theme.tres" id="1_qi8qh"]
 [ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_label.gd" id="3_ijokl"]
+[ext_resource type="Texture2D" uid="uid://cybrstahiy7mp" path="res://scenes/dialog/next_box.svg" id="4_pv5ys"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1arfj"]
 bg_color = Color(0.0941176, 0.192157, 0.654902, 1)
@@ -32,12 +33,14 @@ grow_vertical = 0
 theme = ExtResource("1_qi8qh")
 
 [node name="Nameplate" type="Panel" parent="Balloon"]
+layout_mode = 0
 offset_top = -8.0
 offset_right = 32.0
 offset_bottom = 8.0
 
 [node name="Name" type="Label" parent="Balloon/Nameplate"]
 modulate = Color(1, 1, 1, 0.588235)
+layout_mode = 0
 offset_left = 8.0
 offset_top = 2.0
 offset_right = 226.0
@@ -46,6 +49,7 @@ scale = Vector2(0.075, 0.075)
 text = "jhon"
 
 [node name="Bottom" type="Panel" parent="Balloon"]
+layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -55,22 +59,25 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Margin" type="MarginContainer" parent="Balloon"]
+layout_mode = 0
 offset_right = 4267.0
 offset_bottom = 1280.0
 scale = Vector2(0.075, 0.075)
 theme_override_constants/margin_left = 100
 theme_override_constants/margin_top = 175
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 175
 
 [node name="VBox" type="VBoxContainer" parent="Balloon/Margin"]
+layout_mode = 2
 offset_left = 100.0
 offset_top = 175.0
-offset_right = 4257.0
+offset_right = 4167.0
 offset_bottom = 1105.0
 
 [node name="DialogueLabel" type="RichTextLabel" parent="Balloon/Margin/VBox"]
-offset_right = 4157.0
+layout_mode = 2
+offset_right = 4067.0
 offset_bottom = 151.0
 bbcode_enabled = true
 text = "yoda can eat."
@@ -78,26 +85,45 @@ fit_content_height = true
 script = ExtResource("3_ijokl")
 
 [node name="Control" type="Control" parent="Balloon/Margin/VBox"]
-custom_minimum_size = Vector2i(0, 150)
-layout_mode = 3
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
 anchors_preset = 0
 offset_top = 155.0
-offset_right = 4157.0
+offset_right = 4067.0
 offset_bottom = 305.0
 
 [node name="Responses" type="VBoxContainer" parent="Balloon/Margin/VBox"]
+layout_mode = 2
 offset_top = 309.0
-offset_right = 4157.0
+offset_right = 4067.0
 offset_bottom = 309.0
 
 [node name="ResponseTemplate" type="RichTextLabel" parent="Balloon/Margin/VBox"]
+layout_mode = 2
 offset_top = 313.0
-offset_right = 4157.0
+offset_right = 4067.0
 offset_bottom = 464.0
 theme_override_styles/focus = SubResource("StyleBoxFlat_1arfj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_v7b6o")
 text = "response"
 fit_content_height = true
+
+[node name="NextButton" type="Control" parent="Balloon"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="NextBox" type="Sprite2D" parent="Balloon/NextButton"]
+position = Vector2(296, 8)
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("4_pv5ys")
 
 [node name="Localizer" type="Node2D" parent="Balloon"]
 visible = false
