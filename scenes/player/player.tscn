@@ -308,9 +308,10 @@ layer = 2
 [node name="Cursor" type="Sprite2D" parent="Camera2d/HUD"]
 process_mode = 3
 texture_filter = 2
-position = Vector2(38, 13)
+position = Vector2(37, 11)
 scale = Vector2(0.075, 0.075)
 texture = ExtResource("3_rr8uq")
+offset = Vector2(13, 32)
 script = ExtResource("4_d46pm")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

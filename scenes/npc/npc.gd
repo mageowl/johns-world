@@ -12,6 +12,6 @@ func _on_mouse_exited():
 	animation_player.play("Disappear")
 
 
-func _on_input_event(viewport, event, shape_idx):
+func _on_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.is_action("left_mouse"):
 		Global.start_dialog(dialog_resource)
