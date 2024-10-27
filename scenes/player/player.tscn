@@ -142,18 +142,20 @@ animation = &"Air"
 animation = &"Idle"
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_alfxt"]
-enabled_inputs = 2
 input_0/name = "no"
 input_0/auto_advance = false
+input_0/reset = true
 input_1/name = "yes"
 input_1/auto_advance = false
+input_1/reset = true
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_qnxhg"]
-enabled_inputs = 2
 input_0/name = "no"
 input_0/auto_advance = false
+input_0/reset = true
 input_1/name = "yes"
 input_1/auto_advance = false
+input_1/reset = true
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dapc0"]
 animation = &"Jump"
@@ -164,7 +166,6 @@ animation = &"Jump"
 animation = &"Walk"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_rpa7i"]
-graph_offset = Vector2(-122.64, 244.965)
 nodes/air/node = SubResource("AnimationNodeAnimation_pg22g")
 nodes/air/position = Vector2(300, 460)
 nodes/idle/node = SubResource("AnimationNodeAnimation_mvpc0")
@@ -180,7 +181,7 @@ nodes/jumped/position = Vector2(740, 300)
 nodes/output/position = Vector2(1060, 300)
 nodes/walk/node = SubResource("AnimationNodeAnimation_rfoq7")
 nodes/walk/position = Vector2(80, 420)
-node_connections = [&"output", 0, &"jumped", &"in_air", 0, &"is_moving", &"in_air", 1, &"air", &"is_moving", 0, &"idle", &"is_moving", 1, &"walk", &"jumped", 0, &"in_air", &"jumped", 1, &"jump"]
+node_connections = [&"in_air", 0, &"is_moving", &"in_air", 1, &"air", &"is_moving", 0, &"idle", &"is_moving", 1, &"walk", &"jumped", 0, &"in_air", &"jumped", 1, &"jump", &"output", 0, &"jumped"]
 
 [sub_resource type="Gradient" id="Gradient_d12b6"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -190,16 +191,14 @@ gradient = SubResource("Gradient_d12b6")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_486vp"]
 shader = ExtResource("2_tjxml")
-shader_parameter/colorGradient = SubResource("GradientTexture1D_tu2l6")
 shader_parameter/radius = 1.0
 shader_parameter/useDonut = false
+shader_parameter/colorGradient = SubResource("GradientTexture1D_tu2l6")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_juukc"]
 particle_flag_disable_z = true
 direction = Vector3(0, 1, 0)
 gravity = Vector3(0, -10, 0)
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
 scale_min = 2.0
 scale_max = 2.3
 
@@ -212,9 +211,9 @@ gradient = SubResource("Gradient_tdhxw")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lfkff"]
 shader = ExtResource("2_tjxml")
-shader_parameter/colorGradient = SubResource("GradientTexture1D_uf5vi")
 shader_parameter/radius = 1.0
 shader_parameter/useDonut = false
+shader_parameter/colorGradient = SubResource("GradientTexture1D_uf5vi")
 
 [sub_resource type="Curve" id="Curve_n03el"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.42437, 1), -0.13113, -0.13113, 0, 0, Vector2(1, 0), -5.12861, 0.0, 0, 0]
@@ -227,11 +226,9 @@ curve = SubResource("Curve_n03el")
 particle_flag_disable_z = true
 direction = Vector3(0, 1, 0)
 spread = 40.0
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = 10.0
 initial_velocity_max = 30.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 linear_accel_min = 10.0
 linear_accel_max = 10.0
 scale_min = 2.0
@@ -261,12 +258,20 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="Sprite"]
+libraries = {
+"": SubResource("AnimationLibrary_ld48j")
+}
 tree_root = SubResource("AnimationNodeBlendTree_rpa7i")
 anim_player = NodePath("../AnimationPlayer")
-active = true
-parameters/in_air/current = 0
-parameters/is_moving/current = 0
+parameters/in_air/current_state = "no"
+parameters/in_air/transition_request = ""
+parameters/in_air/current_index = 0
+parameters/is_moving/current_state = "no"
+parameters/is_moving/transition_request = ""
+parameters/is_moving/current_index = 0
 parameters/jumped/active = false
+parameters/jumped/internal_active = false
+parameters/jumped/request = 0
 
 [node name="StepParticles" type="GPUParticles2D" parent="."]
 material = SubResource("ShaderMaterial_486vp")
@@ -275,17 +280,16 @@ amount = 32
 process_material = SubResource("ParticleProcessMaterial_juukc")
 
 [node name="JumpParticles" type="GPUParticles2D" parent="."]
-material = SubResource("ShaderMaterial_lfkff")
 z_index = 100
+material = SubResource("ShaderMaterial_lfkff")
 emitting = false
 amount = 4
+process_material = SubResource("ParticleProcessMaterial_xoqqq")
 lifetime = 0.4
 one_shot = true
-process_material = SubResource("ParticleProcessMaterial_xoqqq")
 
 [node name="Camera2d" type="Camera2D" parent="."]
 ignore_rotation = false
-current = true
 limit_smoothed = true
 position_smoothing_enabled = true
 editor_draw_limits = true

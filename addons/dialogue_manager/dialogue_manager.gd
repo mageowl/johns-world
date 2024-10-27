@@ -339,7 +339,7 @@ func mutate(mutation: Dictionary) -> void:
 		if not mutation_contains_assignment(mutation.expression):
 			emit_signal("mutation")
 		
-		return await resolve(mutation.expression.duplicate(true))
+		await resolve(mutation.expression.duplicate(true))
 		
 	# Wait one frame to give the dialogue handler a chance to yield
 	await get_tree().process_frame
